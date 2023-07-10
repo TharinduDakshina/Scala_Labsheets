@@ -6,7 +6,7 @@ object Q2 {
 
   def checkType(value:Int): Unit = {
     if(value<0)println("Negative number.");
-    else if(value==0) println(value)
+    else if(value==0) println("Zero")
     else if((value%2)==0)println("Even Number");
     else println("Odd number");
   }

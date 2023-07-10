@@ -4,23 +4,20 @@ import scala.io.StdIn
 
 object Q3 {
 
-  def toUpper(name: String): Unit = {
-    println(name.toUpperCase());
-  }
-
-  def toLower(name: String): Unit = {
-    println(name.toLowerCase());
-  }
-
-  def formatNames(names: List[String]): Unit = {
-
-    names.foreach(temp =>toUpper(temp))
-    println("----------------------------------------------------")
-    names.foreach(temp =>toLower(temp))
-  }
-
   def main(args: Array[String]): Unit = {
-    var names=List("Benny","Niroshan","Saman","Kumara");
-    formatNames(names)
+    formatter()
   }
+
+  def formatter(): Unit = {
+    println(formatNames("Benny", toUpper))
+    println(formatNames("Ni", toUpper) + "roshan")
+    println(formatNames("Saman", toLower))
+    println("Kumar" + formatNames("a", toUpper))
+  }
+
+  def toUpper(str: String): String = str.toUpperCase()
+
+  def toLower(str: String): String = str.toLowerCase()
+
+  def formatNames(name: String, formatName: String => String): String = formatName(name)
 }
