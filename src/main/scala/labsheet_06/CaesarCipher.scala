@@ -3,39 +3,52 @@ package labsheet_06
 import scala.io.StdIn
 
 object CaesarCipher {
-  // Function to encrypt a message using the Caesar cipher
-  def encrypt(message: String, shift: Int): String = {
-    val encryptedChars = message.map { char =>
+  def caesarEncrypt(plaintext: String, shift: Int): String = {
+
+    val encryptedChars = plaintext.map { char =>
       if (char.isLetter) {
-        val base = if (char.isUpper) 'A' else 'a'
-        val encryptedChar = (char - base + shift) % 26
-        (base + encryptedChar).toChar
+        val shiftOffset = if (char.isUpper) 'A' else 'a'
+        val encryptedChar = ((char - shiftOffset + shift) % 26 + shiftOffset).toChar
+        encryptedChar
+
       } else {
         char
       }
     }
+
     encryptedChars.mkString
   }
 
-  // Function to decrypt a message using the Caesar cipher
-  def decrypt(encryptedMessage: String, shift: Int): String = {
-    encrypt(encryptedMessage, 26 - shift)
+  def caesarDecrypt(ciphertext: String, shift: Int): String = {
+
+    caesarEncrypt(ciphertext, -shift)
   }
 
-  def getMassage() : String ={
+  def cipher(text: String, shift: Int, operation: String): String = {
+    operation match {
+      case "encrypt" => caesarEncrypt(text, shift)
+      case "decrypt" => caesarDecrypt(text, shift)
+      case _ => throw new IllegalArgumentException("Invalid operation. Use 'encrypt' or 'decrypt'.")
+    }
+  }
+
+  def getMassage(): String = {
     print("Enter Massage : ");
     return StdIn.readLine()
   }
 
+
   def main(args: Array[String]): Unit = {
-    val originalMessage: String = getMassage()
-    val shift = 1
+    val plaintext = getMassage()
+    val shiftAmount = 2
 
-    val encryptedMessage = encrypt(originalMessage, shift)
-    val decryptedMessage = decrypt(encryptedMessage, shift)
+    // Encrypt the plaintext
+    val encryptedText = cipher(plaintext, shiftAmount, "encrypt")
+    println("Encrypted:" + encryptedText)
 
-    println(s"Original Message: $originalMessage")
-    println(s"Encrypted Message: $encryptedMessage")
-    println(s"Decrypted Message: $decryptedMessage")
+    // Decrypt the ciphertext
+    val decryptedText = cipher(encryptedText, shiftAmount, "decrypt")
+    println("Decrypted:" + decryptedText)
   }
+
 }
