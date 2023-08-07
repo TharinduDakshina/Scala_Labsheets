@@ -3,9 +3,9 @@ package labsheet_06
 import scala.io.StdIn
 
 object CaesarCipher {
-  def caesarEncrypt(plaintext: String, shift: Int): String = {
+  def caesarEncrypt(massage: String, shift: Int): String = {
 
-    val encryptedChars = plaintext.map { char =>
+    val encryptedChars = massage.map { char =>
       if (char.isLetter) {
         val shiftOffset = if (char.isUpper) 'A' else 'a'
         val encryptedChar = ((char - shiftOffset + shift) % 26 + shiftOffset).toChar
@@ -24,31 +24,31 @@ object CaesarCipher {
     caesarEncrypt(ciphertext, -shift)
   }
 
-  def cipher(text: String, shift: Int, operation: String): String = {
+  def cipher(massage: String, shift: Int, operation: String): String = {
     operation match {
-      case "encrypt" => caesarEncrypt(text, shift)
-      case "decrypt" => caesarDecrypt(text, shift)
+      case "encrypt" => caesarEncrypt(massage, shift)
+      case "decrypt" => caesarDecrypt(massage, shift)
       case _ => throw new IllegalArgumentException("Invalid operation. Use 'encrypt' or 'decrypt'.")
     }
   }
 
   def getMassage(): String = {
-    print("Enter Massage : ");
+    print("Enter Message : ");
     return StdIn.readLine()
   }
 
 
   def main(args: Array[String]): Unit = {
     val plaintext = getMassage()
-    val shiftAmount = 2
+    val shiftAmount =4;
 
     // Encrypt the plaintext
     val encryptedText = cipher(plaintext, shiftAmount, "encrypt")
-    println("Encrypted:" + encryptedText)
+    println("Encrypted Message :" + encryptedText)
 
     // Decrypt the ciphertext
     val decryptedText = cipher(encryptedText, shiftAmount, "decrypt")
-    println("Decrypted:" + decryptedText)
+    println("Decrypted Message :" + decryptedText)
   }
 
 }
