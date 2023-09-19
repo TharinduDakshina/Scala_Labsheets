@@ -1,6 +1,5 @@
-package labsheet_09
+object Q4 extends App {
 
-object Q4 {
   case class Account(accno: String, balance: Double) {
     var AccountNo = accno
     var Balance = balance
@@ -23,29 +22,25 @@ object Q4 {
 
     def listNegative() = this.accounts.filter(_.Balance < 0).foreach(println(_))
 
-    def calculateSum() = this.accounts.reduce((x, y) => Account("", x.balance + y.balance))
+    def calculateSum() = this.accounts.reduce((x, y) => Account("", x.Balance + y.Balance))
 
-    def calculateInterest(x: Account) = if (x.balance < 0) x.balance * .1 else x.balance * .05
+    def calculateInterest(x: Account) = if (x.Balance < 0) x.Balance * 0.1 else x.Balance * 0.05
 
-    def finalBalances() = this.accounts = this.accounts.map((x) => (Account(x.accno, x.balance + calculateInterest(x))))
+    def finalBalances() = this.accounts = this.accounts.map((x) => Account(x.AccountNo, x.Balance + calculateInterest(x)))
   }
 
-  def main(args: Array[String]): Unit = {
-    var testBank = Bank()
+  var testBank = Bank()
 
-    testBank.addAccounts(List(Account("1021-01", 7500), Account("1021-02", -204)))
+  testBank.addAccounts(List(Account("1021-01", 7500), Account("1021-02", -204)))
 
-    //testBank.printBank()
-    println("Negative balance accounts: ")
-    testBank.listNegative()
+  //testBank.printBank()
+  println("Negative balance accounts: ")
+  testBank.listNegative()
 
-    println("\nSum of all balances:")
-    println(testBank.calculateSum().balance)
+  println("\nSum of all balances:")
+  println(testBank.calculateSum().Balance)
 
-    println("\nFinal balances: ")
-    testBank.finalBalances()
-    testBank.printBank()
-  }
-
-
+  println("\nFinal balances: ")
+  testBank.finalBalances()
+  testBank.printBank()
 }
